@@ -1,0 +1,245 @@
+#cmake_minimum_required(VERSION 3.15)
+project(AIR)
+
+set(CMAKE_CXX_STANDARD 14)
+
+set(COMPILER_PATH "/usr/bin") # or /usr/local/bin
+
+set(CMAKE_CXX_COMPILER "${COMPILER_PATH}/mpic++")
+
+include_directories(/usr/local/include)
+include_directories(include)
+include_directories(include/json)
+include_directories(src/batching)
+include_directories(src/collector)
+include_directories(src/communication)
+include_directories(src/configuration)
+include_directories(src/connector)
+include_directories(src/dataflow)
+include_directories(src/function)
+include_directories(src/input)
+include_directories(src/output)
+include_directories(src/partitioning)
+include_directories(src/relational)
+include_directories(src/serialization)
+include_directories(src/usecases)
+include_directories(src/winagg)
+include_directories(src/yahoo)
+include_directories(src/yahoo_m)
+include_directories(src/nexmark_gen)
+include_directories(src/nexmark_hot_items)
+include_directories(src/nexmark_hot_items_fw)
+include_directories(src/nexmark_hot_items_ws)
+include_directories(src/nexmark_new_sellers)
+include_directories(src/nexmark_new_sellers_fw)
+include_directories(src/nexmark_new_sellers_ws)
+include_directories(src/scb)
+include_directories(src/scb_fw)
+include_directories(src/scb_ws)
+
+add_executable(AIR
+        src/batching/Map.cpp
+        src/batching/Map.hpp
+        src/batching/Reduce.cpp
+        src/batching/Reduce.hpp
+        src/collector/BinCollector.cpp
+        src/collector/BinCollector.hpp
+        src/collector/RowCollector.cpp
+        src/collector/RowCollector.hpp
+        src/communication/Message.cpp
+        src/communication/Message.hpp
+        src/communication/Window.cpp
+        src/communication/Window.hpp
+        src/configuration/HashConfig.hpp
+        src/connector/BinConnector.cpp
+        src/connector/BinConnector.hpp
+        src/connector/PartRowConnector.cpp
+        src/connector/PartRowConnector.hpp
+        src/connector/RowConnector.cpp
+        src/connector/RowConnector.hpp
+        src/dataflow/Dataflow.cpp
+        src/dataflow/Dataflow.hpp
+        src/dataflow/Vertex.cpp
+        src/dataflow/Vertex.hpp
+        src/dataflow/BasicVertex.hpp
+        src/dataflow/CountAggregator.hpp
+        src/dataflow/FlowWrappingAggregator.hpp
+        src/dataflow/SortAggregator.hpp
+        src/function/Function.cpp
+        src/function/Function.hpp
+        src/function/SquareFunction.cpp
+        src/function/SquareFunction.hpp
+        src/function/SumFunction.cpp
+        src/function/SumFunction.hpp
+        src/input/FileInput.cpp
+        src/input/FileInput.hpp
+        src/input/Input.cpp
+        src/input/Input.hpp
+        src/main/main.cpp
+        src/output/FileOutput.cpp
+        src/output/FileOutput.hpp
+        src/output/Output.cpp
+        src/output/Output.hpp
+        src/partitioning/Hash.cpp
+        src/partitioning/Hash.hpp
+        src/partitioning/PairPartition.hpp
+        src/partitioning/Partition.hpp
+        src/relational/Aggr.cpp
+        src/relational/Aggr.hpp
+        src/relational/Attribute.cpp
+        src/relational/Attribute.hpp
+        src/relational/Cond.cpp
+        src/relational/Cond.hpp
+        src/relational/Relation.cpp
+        src/relational/Relation.hpp
+        src/relational/Schema.cpp
+        src/relational/Schema.hpp
+        src/relational/SortAggregation.cpp
+        src/relational/SortAggregation.hpp
+        src/relational/SortMergeJoin.cpp
+        src/relational/SortMergeJoin.hpp
+        src/serialization/Serialization.cpp
+        src/serialization/Serialization.hpp
+        src/usecases/MapReduce.cpp
+        src/usecases/MapReduce.hpp
+        src/usecases/StreamingTest.cpp
+        src/usecases/StreamingTest.hpp
+        src/usecases/TPCH.cpp
+        src/usecases/TPCH.hpp
+        src/usecases/WinAgg.cpp
+        src/usecases/WinAgg.hpp
+        src/usecases/YSB.cpp
+        src/usecases/YSB.hpp
+        src/usecases/YSB_m.cpp
+        src/usecases/YSB_m.hpp
+        src/winagg/EventSharder.cpp
+        src/winagg/EventSharder.hpp
+        src/winagg/WindowedCounter.cpp
+        src/winagg/WindowedCounter.hpp
+        src/yahoo/EventCollector.cpp
+        src/yahoo/EventCollector.hpp
+        src/yahoo/EventFilter.cpp
+        src/yahoo/EventFilter.hpp
+        src/yahoo/EventGenerator.cpp
+        src/yahoo/EventGenerator.hpp
+        src/yahoo/FullAggregator.cpp
+        src/yahoo/FullAggregator.hpp
+        src/yahoo/PartialAggregator.cpp
+        src/yahoo/PartialAggregator.hpp
+        src/yahoo/SHJoin.cpp
+        src/yahoo/SHJoin.hpp
+        src/yahoo_m/EventFilter_m.cpp
+        src/yahoo_m/EventFilter_m.hpp
+        src/yahoo_m/FullAggregator_m.cpp
+        src/yahoo_m/FullAggregator_m.hpp
+        src/yahoo_m/WinJoinYSB_m.cpp
+        src/yahoo_m/WinJoinYSB_m.hpp
+        src/nexmark_gen/Auctions.hpp
+        src/nexmark_gen/Auctions.cpp
+        src/nexmark_gen/EventCollector.hpp
+        src/nexmark_gen/EventCollector.cpp
+        src/nexmark_gen/EventGenerator.hpp
+        src/nexmark_gen/EventGenerator.cpp
+        src/nexmark_gen/Persons.cpp
+        src/nexmark_gen/Persons.hpp
+        src/nexmark_gen/Random.hpp
+        src/nexmark_gen/Random.cpp
+        src/nexmark_gen/PODTypes.hpp
+        src/nexmark_gen/FirstNames.hpp
+        src/nexmark_gen/LastNames.hpp
+        src/nexmark_gen/Cities.hpp
+        src/nexmark_gen/States.hpp
+        src/nexmark_hot_items/BidFilter.cpp
+        src/nexmark_hot_items/BidFilter.hpp
+        src/nexmark_hot_items/EventCollector.cpp
+        src/nexmark_hot_items/EventCollector.hpp
+        src/nexmark_hot_items/EventSharder.cpp
+        src/nexmark_hot_items/EventSharder.hpp
+        src/nexmark_hot_items/GroupbyAuction.cpp
+        src/nexmark_hot_items/GroupbyAuction.hpp
+        src/nexmark_hot_items_ws/EventCollector.cpp
+        src/nexmark_hot_items_ws/EventCollector.hpp
+        src/nexmark_hot_items_ws/GroupbyAuction.cpp
+        src/nexmark_hot_items_ws/GroupbyAuction.hpp
+        src/nexmark_hot_items_fw/EventGenerator.cpp
+        src/nexmark_hot_items_fw/EventGenerator.hpp
+        src/nexmark_hot_items_fw/BidFilter.cpp
+        src/nexmark_hot_items_fw/BidFilter.hpp
+        src/nexmark_hot_items_fw/EventCollector.cpp
+        src/nexmark_hot_items_fw/EventCollector.hpp
+        src/nexmark_hot_items_fw/EventSharder.cpp
+        src/nexmark_hot_items_fw/EventSharder.hpp
+        src/nexmark_hot_items_fw/GroupbyAuction.cpp
+        src/nexmark_hot_items_fw/GroupbyAuction.hpp
+        src/nexmark_new_sellers/EventGenerator.hpp
+        src/nexmark_new_sellers/EventGenerator.cpp
+        src/nexmark_new_sellers/PersonsFilter.hpp
+        src/nexmark_new_sellers/PersonsFilter.cpp
+        src/nexmark_new_sellers/AuctionsFilter.hpp
+        src/nexmark_new_sellers/AuctionsFilter.cpp
+        src/nexmark_new_sellers/PersonAttributesSelector.hpp
+        src/nexmark_new_sellers/PersonAttributesSelector.cpp
+        src/nexmark_new_sellers/AuctionAttributesSelector.hpp
+        src/nexmark_new_sellers/AuctionAttributesSelector.cpp
+        src/nexmark_new_sellers/PersonsManager.hpp
+        src/nexmark_new_sellers/PersonsManager.cpp
+        src/nexmark_new_sellers/AuctionsManager.hpp
+        src/nexmark_new_sellers/AuctionsManager.cpp
+        src/nexmark_new_sellers/TumblingWindowJoin.hpp
+        src/nexmark_new_sellers/TumblingWindowJoin.cpp
+        src/nexmark_new_sellers/EventCollector.hpp
+        src/nexmark_new_sellers/EventCollector.cpp
+        src/nexmark_new_sellers_fw/EventGenerator.hpp
+        src/nexmark_new_sellers_fw/EventGenerator.cpp
+        src/nexmark_new_sellers_fw/PersonsFilter.hpp
+        src/nexmark_new_sellers_fw/PersonsFilter.cpp
+        src/nexmark_new_sellers_fw/AuctionsFilter.hpp
+        src/nexmark_new_sellers_fw/AuctionsFilter.cpp
+        src/nexmark_new_sellers_fw/PersonAttributesSelector.hpp
+        src/nexmark_new_sellers_fw/PersonAttributesSelector.cpp
+        src/nexmark_new_sellers_fw/AuctionAttributesSelector.hpp
+        src/nexmark_new_sellers_fw/AuctionAttributesSelector.cpp
+        src/nexmark_new_sellers_fw/TumblingWindowJoin.hpp
+        src/nexmark_new_sellers_fw/TumblingWindowJoin.cpp
+        src/nexmark_new_sellers_fw/EventCollector.hpp
+        src/nexmark_new_sellers_fw/EventCollector.cpp
+        src/nexmark_new_sellers_ws/TumblingWindowJoin.hpp
+        src/nexmark_new_sellers_ws/TumblingWindowJoin.cpp
+        src/nexmark_new_sellers_ws/EventCollector.hpp
+        src/nexmark_new_sellers_ws/EventCollector.cpp
+        src/scb/EventGenerator.hpp
+        src/scb/EventGenerator.cpp
+        src/scb/Aggregator.hpp
+        src/scb/Aggregator.cpp
+        src/scb/EventCollector.hpp
+        src/scb/EventCollector.cpp
+        src/scb_fw/EventGenerator.hpp
+        src/scb_fw/EventGenerator.cpp
+        src/scb_fw/Aggregator.hpp
+        src/scb_fw/Aggregator.cpp
+        src/scb_fw/EventCollector.hpp
+        src/scb_fw/EventCollector.cpp
+        src/scb_ws/EventGenerator.hpp
+        src/scb_ws/EventGenerator.cpp
+        src/scb_ws/EventCollector.hpp
+        src/scb_ws/EventCollector.cpp
+        src/scb_ws/Aggregator.hpp
+        src/scb_ws/Aggregator.cpp
+        src/usecases/NQ5.cpp
+        src/usecases/NQ5.hpp
+        src/usecases/NQ5WS.hpp
+        src/usecases/NQ5WS.cpp
+        src/usecases/NQ5FW.hpp
+        src/usecases/NQ5FW.cpp
+        src/usecases/NQ8.hpp
+        src/usecases/NQ8.cpp
+        src/usecases/NQ8FW.hpp
+        src/usecases/NQ8FW.cpp
+        src/usecases/NQ8WS.hpp
+        src/usecases/NQ8WS.cpp
+        src/usecases/SCB.hpp
+        src/usecases/SCB.cpp
+        src/usecases/SCBFW.hpp
+        src/usecases/SCBFW.cpp
+        src/usecases/SCBWS.hpp
+        src/usecases/SCBWS.cpp)
